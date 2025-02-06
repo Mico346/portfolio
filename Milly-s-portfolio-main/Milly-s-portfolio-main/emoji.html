@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emoji Match Game</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+      body {
+          font-family: 'Poppins', sans-serif;
+          background-color: #FAF3F3;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+      }
+
+      header {
+          
+          color:#ff87a9;
+          padding: 20px;
+          font-size: 24px;
+          text-transform: uppercase;
+      }
+
+      .score-board {
+          font-size: 20px;
+          margin: 10px;
+          font-weight: bold;
+          color: #FF4081;
+      }
+
+      .game-board {
+          display: grid;
+          grid-template-columns: repeat(12, 50px);
+          grid-template-rows: repeat(12, 50px);
+          gap: 5px;
+          padding: 20px;
+          margin: 20px auto;
+          max-width: 700px;
+      }
+
+      .emoji {
+          width: 50px;
+          height: 50px;
+          font-size: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+          transition: transform 0.2s ease-in-out;
+          user-select: none;
+      }
+
+      .emoji:hover {
+          transform: scale(1.1);
+      }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Emoji Match Game</h1>
+    <div class="score-board">Score: <span id="score">0</span></div>
+  </header>
+
+  <div class="game-board" id="game-board"></div>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          const gameBoard = document.getElementById("game-board");
+          const scoreDisplay = document.getElementById("score");
+          const emojis = ["🎀", "✨", "💖", "🍓", "🍰", "🍔", "🍩", "🍫", "🍒", "🥐"];
+          const gridSize = 12;
+          let board = [];
+          let firstSelection = null;
+          let score = 0;
+          
+          function generateBoard() {
+              board = [];
+              gameBoard.innerHTML = "";
+              for (let i = 0; i < gridSize; i++) {
+                  board[i] = [];
+                  for (let j = 0; j < gridSize; j++) {
+                      const emojiTile = document.createElement("div");
+                      emojiTile.classList.add("emoji");
+                      let emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                      emojiTile.innerText = emoji;
+                      emojiTile.dataset.row = i;
+                      emojiTile.dataset.col = j;
+                      emojiTile.addEventListener("click", () => handleSelection(emojiTile));
+                      gameBoard.appendChild(emojiTile);
+                      board[i][j] = emojiTile;
+                  }
+              }
+          }
+          
+          function handleSelection(tile) {
+              if (!firstSelection) {
+                  firstSelection = tile;
+                  tile.style.transform = "scale(1.2)";
+              } else {
+                  let row1 = parseInt(firstSelection.dataset.row);
+                  let col1 = parseInt(firstSelection.dataset.col);
+                  let row2 = parseInt(tile.dataset.row);
+                  let col2 = parseInt(tile.dataset.col);
+
+                  if (isAdjacent(row1, col1, row2, col2)) {
+                      swapEmojis(firstSelection, tile);
+                      firstSelection.style.transform = "scale(1)";
+                      firstSelection = null;
+                      setTimeout(checkMatches, 300);
+                  } else {
+                      firstSelection.style.transform = "scale(1)";
+                      firstSelection = null;
+                  }
+              }
+          }
+
+          function isAdjacent(row1, col1, row2, col2) {
+              return (Math.abs(row1 - row2) === 1 && col1 === col2) || (Math.abs(col1 - col2) === 1 && row1 === row2);
+          }
+
+          function swapEmojis(tile1, tile2) {
+              let temp = tile1.innerText;
+              tile1.innerText = tile2.innerText;
+              tile2.innerText = temp;
+          }
+
+          function checkMatches() {
+              let matches = [];
+              for (let i = 0; i < gridSize; i++) {
+                  for (let j = 0; j < gridSize - 2; j++) {
+                      if (board[i][j].innerText === board[i][j+1].innerText && board[i][j].innerText === board[i][j+2].innerText) {
+                          matches.push(board[i][j], board[i][j+1], board[i][j+2]);
+                      }
+                  }
+              }
+              for (let j = 0; j < gridSize; j++) {
+                  for (let i = 0; i < gridSize - 2; i++) {
+                      if (board[i][j].innerText === board[i+1][j].innerText && board[i][j].innerText === board[i+2][j].innerText) {
+                          matches.push(board[i][j], board[i+1][j], board[i+2][j]);
+                      }
+                  }
+              }
+              if (matches.length > 0) {
+                  matches.forEach(tile => {
+                      tile.innerText = "";
+                  });
+                  updateScore(matches.length);
+                  setTimeout(fillEmptyTiles, 500);
+              }
+          }
+
+          function updateScore(points) {
+    score += 1;
+    scoreDisplay.innerText = score;
+}
+
+          function fillEmptyTiles() {
+              for (let j = 0; j < gridSize; j++) {
+                  for (let i = gridSize - 1; i >= 0; i--) {
+                      if (board[i][j].innerText === "") {
+                          for (let k = i; k > 0; k--) {
+                              board[k][j].innerText = board[k-1][j].innerText;
+                          }
+                          board[0][j].innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                      }
+                  }
+              }
+              setTimeout(checkMatches, 500);
+          }
+          
+          generateBoard();
+      });
+  </script>
+</body>
+</html>

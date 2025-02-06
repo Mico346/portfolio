@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Old Projects</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+      body {
+          font-family: 'Poppins', sans-serif;
+          background-color: #FAF3F3;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+      }
+
+      .emoji-bg {
+          display: grid;
+          grid-template-columns: repeat(10, 1fr);
+          gap: 10px;
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: -1;
+          opacity: 0.15;
+      }
+      .emoji-bg span {
+          font-size: 30px;
+          text-align: center;
+      }
+
+      header {
+          
+          color: #ff87a9;
+          padding: 20px;
+          font-size: 24px;
+          text-transform: uppercase;
+      }
+
+      .projects {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+      }
+
+      .project {
+          background: white;
+          padding: 15px;
+          border-radius: 10px;
+          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease;
+      }
+
+      .project:hover {
+          transform: scale(1.05);
+      }
+
+      .project-thumbnail {
+          width: 100%;
+          border-radius: 8px;
+      }
+
+      h3 {
+          color: #FFB6C1;
+      }
+  </style>
+</head>
+<body>
+    <div class="emoji-bg">
+        <span>🎀</span><span>✨</span><span>💖</span><span>🎀</span><span>✨</span><span>💖</span>
+        <span>🎀</span><span>✨</span><span>💖</span><span>🎀</span><span>✨</span><span>💖</span>
+        <span>🎀</span><span>✨</span><span>💖</span><span>🎀</span><span>✨</span><span>💖</span>
+        <span>🎀</span><span>✨</span><span>💖</span><span>🎀</span><span>✨</span><span>💖</span>
+        <span>🎀</span><span>✨</span><span>💖</span><span>🎀</span><span>✨</span><span>💖</span>
+    </div>
+
+    <header>
+      <h1>Old Projects</h1>
+    </header>
+
+    <div class="projects">
+      <div class="project">
+        <a href="clock/clock index.html">
+          <img src="clock/clock.png" alt="Clock Project" class="project-thumbnail">
+        </a>
+        <h3>Clock</h3>
+      </div>
+
+      <div class="project">
+        <a href="data-portrait/index.html">
+          <img src="data-portrait/data-portrait.png" alt="Data Portrait" class="project-thumbnail">
+        </a>
+        <h3>Data Portrait</h3>
+      </div>
+
+      <div class="project">
+        <a href="face-generator/index.html">
+          <img src="face-generator/face-generator.png" alt="Face Generator" class="project-thumbnail">
+        </a>
+        <h3>Face Generator</h3>
+      </div>
+
+      <div class="project">
+        <a href="finding-home/index.html">
+          <img src="finding-home/finding-home.png" alt="Finding Home" class="project-thumbnail">
+        </a>
+        <h3>Finding Home</h3>
+      </div>
+
+      <div class="project">
+        <a href="insulation-cup/index.html">
+          <img src="insulation-cup/insulation-cup.png" alt="Insulation Cup" class="project-thumbnail">
+        </a>
+        <h3>Insulation Cup</h3>
+      </div>
+
+      <div class="project">
+        <a href="optical-illusion/index.html">
+          <img src="optical-illusion/optical-illusion.png" alt="Optical Illusion" class="project-thumbnail">
+        </a>
+        <h3>Optical Illusion</h3>
+      </div>
+
+      <div class="project">
+        <a href="album/index.html">
+          <img src="album/album.png" alt="Album" class="project-thumbnail">
+        </a>
+        <h3>Album</h3>
+      </div>
+
+      <div class="project">
+        <a href="body/index.html">
+          <img src="body/body.png" alt="Body" class="project-thumbnail">
+        </a>
+        <h3>Body</h3>
+      </div>
+    </div>
+</body>
+</html>
